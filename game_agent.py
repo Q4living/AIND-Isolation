@@ -201,21 +201,18 @@ class MinimaxPlayer(IsolationPlayer):
         if depth <= 0 or len(moves) <= 0:
             return [self.score(game, self), (-1, -1), 0]
         
-        else 
-            # init the cur_value, moves, old_value
-            value = [float("-inf"), moves[0], 0]
+        # init the cur_value, moves, old_value
+       	value = [float("-inf"), moves[0], 0]
 
-            # start searching
-            for move in moves:
-                # Old Value = Current Value
-                value[2] = value[0]
-                value[0] = max(value[0], self.minSearch(game.forecast_move(move), depth - 1)[0])
-                
-                # Update new value
-                if value[0] != value[2]:
-                    value[1] = move
-
-            return value
+        # start searching
+        for move in moves:
+            # Old Value = Current Value
+            value[2] = value[0]
+            value[0] = max(value[0], self.minSearch(game.forecast_move(move), depth - 1)[0])
+            
+            # Update new value
+            if value[0] != value[2]:
+                value[1] = move
     
     def minSearch(self, game, depth):
         # Timeout handling
@@ -231,16 +228,19 @@ class MinimaxPlayer(IsolationPlayer):
             # init the cur_value, moves, old_value
             value = [float("inf"), moves[0], 0]
 
-            # start searching
-            for move in moves:
-                value[2] = value[0]
-                value[0] = min(value[0], self.maxSearch(game.forecast_move(move), depth - 1)[0])
-                
-                # Update new value
-                if value[0] != value[2]:
-                    value[1] = move
+        # init the cur_value, moves, old_value
+        value = [float("inf"), moves[0], 0]
 
-            return value
+        # start searching
+        for move in moves:
+            value[2] = value[0]
+            value[0] = min(value[0], self.maxSearch(game.forecast_move(move), depth - 1)[0])
+            
+            # Update new value
+            if value[0] != value[2]:
+                value[1] = move
+
+        return value
 
 class AlphaBetaPlayer(IsolationPlayer):
     """Game-playing agent that chooses a move using iterative deepening minimax
